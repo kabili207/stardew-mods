@@ -1,0 +1,10 @@
+{
+  "Name": "Stardew Signals",
+  "Author": "Kabi-chan",
+  "Version": "1.0.0",
+  "Description": "Adds extra event signals for mod developers",
+  "UniqueID": "kabi-chan.StardewSignals",
+  "EntryDll": "StardewSignals.dll",
+  "MinimumApiVersion": "2.10.0",
+  "UpdateKeys": []
+}

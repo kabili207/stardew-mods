@@ -1,0 +1,16 @@
+﻿{
+  "Name": "Stardew MQTT",
+  "Author": "Kabi-chan",
+  "Version": "1.0.0",
+  "Description": "This is a test muffin",
+  "UniqueID": "kabi-chan.StardewMqtt",
+  "EntryDll": "StardewMqtt.dll",
+  "MinimumApiVersion": "2.10.0",
+  "UpdateKeys": [],
+  "Dependencies": [
+    {
+      "UniqueID": "kabi-chan.StardewSignals",
+      "MinimumVersion": "1.0.0"
+    }
+  ]
+}
