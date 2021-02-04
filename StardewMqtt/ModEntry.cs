@@ -7,15 +7,16 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
-using StardewSignals.Events;
+using MuffinCore;
 using StardewModdingAPI.Enums;
 using StardewValley.Characters;
+using MuffinCore.Events;
 
 namespace StardewMqtt
 {
 	public class ModEntry : Mod
 	{
-		IStardewSignals _signalsAPI;
+		IMuffinApi _signalsAPI;
 		MqttConnection _mqtt = null;
 		const string baseTopic = "stardew/";
 		Dictionary<long, string> _playerTopics = new Dictionary<long, string>();
@@ -34,7 +35,7 @@ namespace StardewMqtt
 		{
 			try
 			{
-				_signalsAPI = Helper.ModRegistry.GetApi<IStardewSignals>("kabi-chan.StardewSignals");
+				_signalsAPI = Helper.ModRegistry.GetApi<IMuffinApi>(MuffinCore.Constants.ModUniqueID);
 			}
 			catch (Exception ex)
 			{
@@ -44,7 +45,6 @@ namespace StardewMqtt
 			if (_signalsAPI != null)
 			{
 				_signalsAPI.FriendshipChanged += Signals_FriendshipChanged;
-				_signalsAPI.PetFriendshipChanged += Signals_PetFriendshipChanged;
 			}
 		}
 
@@ -164,22 +164,31 @@ namespace StardewMqtt
 			{
 				InitFarmerTopic(e.Farmer, GetVillagers());
 			}
-			Monitor.Log($"{e.Farmer.Name}'s friendship with {e.NPC.getName()} changed from {e.PreviousPoints} to {e.NewPoints}");
+			Monitor.Log($"{e.Farmer.Name}'s friendship with {e.Character.GetName()} changed from {e.PreviousPoints} to {e.NewPoints}");
 
-			string npcTopic = GetFarmerBaseTopic(e.Farmer) + "/friendship/" + e.NPC.Name;
+			string npcTopic = GetFarmerBaseTopic(e.Farmer) + "/" + GetTopic(e.Character) + "/" + e.Character.Name;
 			_mqtt.Send(npcTopic, e.NewPoints.ToString(), false);
 		}
 
-		void Signals_PetFriendshipChanged(object sender, PetFriendshipEventArgs e)
-		{
-			if (!_playerTopics.ContainsKey(e.Farmer.UniqueMultiplayerID))
-			{
-				InitFarmerTopic(e.Farmer, GetVillagers());
-			}
-			Monitor.Log($"{e.Farmer.Name}'s friendship with {e.Pet.getName()} changed from {e.PreviousPoints} to {e.NewPoints}");
+		//void Signals_PetFriendshipChanged(object sender, PetFriendshipEventArgs e)
+		//{
+		//	if (!_playerTopics.ContainsKey(e.Farmer.UniqueMultiplayerID))
+		//	{
+		//		InitFarmerTopic(e.Farmer, GetVillagers());
+		//	}
+		//	Monitor.Log($"{e.Farmer.Name}'s friendship with {e.Pet.getName()} changed from {e.PreviousPoints} to {e.NewPoints}");
+		//
+		//	string npcTopic = GetFarmerBaseTopic(e.Farmer) + "/pet/" + e.Pet.Name;
+		//	_mqtt.Send(npcTopic, e.NewPoints.ToString(), false);
+		//}
 
-			string npcTopic = GetFarmerBaseTopic(e.Farmer) + "/pet/" + e.Pet.Name;
-			_mqtt.Send(npcTopic, e.NewPoints.ToString(), false);
+		private string GetTopic(Character character)
+		{
+			if (character is Pet)
+				return "pet";
+			if (character is NPC)
+				return "friendship";
+			return "animal";
 		}
 
 		private List<NPC> GetVillagers(bool onlyDatable = false)

@@ -1,24 +1,22 @@
 ﻿using System;
 using StardewValley;
-using StardewSignals.Events;
+using MuffinCore.Events;
 using StardewValley.Characters;
 
-namespace StardewSignals
+namespace MuffinCore
 {
-	public class FriendshipEvents : IFriendshipEvents
+	public class FriendshipEvents : IMuffinApi
 	{
-		public event EventHandler<HeartLevelEventArgs> HeartLevelChanged;
 		public event EventHandler<FriendshipEventArgs> FriendshipChanged;
-		public event EventHandler<PetFriendshipEventArgs> PetFriendshipChanged;
-		
-		public void ProcessChange(Farmer farmer, NPC npc, Friendship friendship, int prevPoints)
+
+		public void ProcessChange(Farmer farmer, Character character, Friendship friendship, int prevPoints)
 		{
-			FriendshipChanged?.Invoke(this, new FriendshipEventArgs(farmer, npc, friendship, prevPoints));
+			ProcessChange(farmer, character, friendship.Points, prevPoints);
 		}
-		
-		public void ProcessChange(Farmer farmer, Pet pet, int newPoints, int prevPoints)
+
+		public void ProcessChange(Farmer farmer, Character character, int newPoints, int prevPoints)
 		{
-			PetFriendshipChanged?.Invoke(this, new PetFriendshipEventArgs(farmer, pet, newPoints, prevPoints));
+			FriendshipChanged?.Invoke(this, new FriendshipEventArgs(farmer, character, newPoints, prevPoints));
 		}
 	}
 }

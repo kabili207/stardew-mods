@@ -3,7 +3,7 @@ using StardewValley;
 using StardewValley.Characters;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace StardewSignals
+namespace MuffinCore
 {
 	internal enum Eligibility
 	{

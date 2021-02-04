@@ -1,9 +1,9 @@
 ﻿using System;
-namespace StardewSignals
+namespace MuffinCore
 {
 	public static class Constants
 	{
-		public const string ModUniqueID = "kabi-chan.StardewSignals";
+		public const string ModUniqueID = "kabi-chan.MuffinCore";
 	}
 }
 

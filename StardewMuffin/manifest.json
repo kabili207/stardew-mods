@@ -1,10 +1,10 @@
 {
-  "Name": "Stardew Signals",
+  "Name": "Muffin Core",
   "Author": "Kabi-chan",
   "Version": "1.0.0",
   "Description": "Adds extra event signals for mod developers",
-  "UniqueID": "kabi-chan.StardewSignals",
-  "EntryDll": "StardewSignals.dll",
+  "UniqueID": "kabi-chan.MuffinCore",
+  "EntryDll": "MuffinCore.dll",
   "MinimumApiVersion": "2.10.0",
   "UpdateKeys": []
 }

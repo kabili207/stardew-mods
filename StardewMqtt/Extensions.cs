@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StardewValley;
+using System;
 using System.Linq;
 using System.Numerics;
 namespace StardewMqtt
@@ -8,15 +9,15 @@ namespace StardewMqtt
 		private static readonly char[] _chars = { '0','1','2','3','4','5','6','7','8','9',
 			'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
 			'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-		
+
 		public static string ToString(this int value, int @base)
 		{
 			return value.ToStringFast(_chars.Take(@base).ToArray());
 		}
 
 		/// <summary>
-		/// An optimized method using an array as buffer instead of 
-		/// string concatenation. This is faster for return values having 
+		/// An optimized method using an array as buffer instead of
+		/// string concatenation. This is faster for return values having
 		/// a length > 1.
 		/// </summary>
 		public static string ToStringFast(this int value, char[] baseChars)
@@ -38,15 +39,15 @@ namespace StardewMqtt
 
 			return new string(result);
 		}
-		
+
 		public static string ToString(this ulong value, int @base)
 		{
 			return value.ToStringFast(_chars.Take(@base).ToArray());
 		}
 
 		/// <summary>
-		/// An optimized method using an array as buffer instead of 
-		/// string concatenation. This is faster for return values having 
+		/// An optimized method using an array as buffer instead of
+		/// string concatenation. This is faster for return values having
 		/// a length > 1.
 		/// </summary>
 		public static string ToStringFast(this ulong value, char[] baseChars)
@@ -55,7 +56,7 @@ namespace StardewMqtt
 			int i = 32;
 			char[] buffer = new char[i];
 			int targetBase= baseChars.Length;
-			
+
 			BigInteger bValue = value;
 
 			do
@@ -70,6 +71,14 @@ namespace StardewMqtt
 
 			return new string(result);
 		}
+
+		public static string GetName(this Character character)
+        {
+			if (character is NPC)
+				return ((NPC)character).getName();
+			return character.displayName ?? character.Name;
+        }
+
 	}
 }
 

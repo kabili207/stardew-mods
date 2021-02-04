@@ -9,7 +9,7 @@
   "UpdateKeys": [],
   "Dependencies": [
     {
-      "UniqueID": "kabi-chan.StardewSignals",
+      "UniqueID": "kabi-chan.MuffinCore",
       "MinimumVersion": "1.0.0"
     }
   ]
