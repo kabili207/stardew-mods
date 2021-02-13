@@ -6,7 +6,7 @@
   "UniqueID": "kabi-chan.StardewMqtt",
   "EntryDll": "StardewMqtt.dll",
   "MinimumApiVersion": "2.10.0",
-  "UpdateKeys": [],
+  "UpdateKeys": [  ],
   "Dependencies": [
     {
       "UniqueID": "kabi-chan.MuffinCore",
